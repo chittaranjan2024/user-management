@@ -209,6 +209,12 @@ public class UserDAO {
 	  {
 		  System.out.println(u);
 	  }
+	  
+	  //Update user
+	  
+	  user=new User("test1","test1@abc.com","USA","test@123");
+	  Boolean status=dao.updateUser(user);
+	  System.out.println(status);
 		   
    }
 }
