@@ -193,14 +193,22 @@ public class UserDAO {
 		   System.out.println("Problem in database connection!!");
 	   }
 	   
-	   
+	   //Data insertion
 	   User user=new User("test","test@abc.com","India","abc@123");
 	   
 	   //dao.insertUser(user);
 	   
-	   
+	   //select data by user id
 	   User user1=dao.selectUser(1);
 	   System.out.println(user1);
+	   
+	   //select all users data
+	   List<User> users=dao.selectAllUsers();
+	   
+	  for(User u:users)
+	  {
+		  System.out.println(u);
+	  }
 		   
    }
 }
