@@ -86,11 +86,14 @@ public class UserDAO {
 			preparedStatement.setInt(1, id);
 			
 			ResultSet  resultSet=preparedStatement.executeQuery();
+			while(resultSet.next())
+			{
+			user.setId(id);	
 			user.setName(resultSet.getString("uname"));
 			user.setEmail(resultSet.getString("email"));
 			user.setCountry(resultSet.getString("country"));
 			user.setPassword(resultSet.getString("passwd"));
-			
+			}
 			
 		}
 		catch(SQLException e)
