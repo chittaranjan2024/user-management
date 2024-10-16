@@ -18,43 +18,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up JDK 17
+      - name: Set up JDK 11
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '11'
 
       - name: Build with Maven
         run: mvn -B clean verify
-
-      - name: Generate JaCoCo Badge and Summary
-        id: jacoco
-        uses: cicirello/jacoco-badge-generator@v2
-        with:
-          badges-directory: badges
-          generate-branches-badge: true
-          generate-summary: true
-
-      - name: Log coverage summary to workflow output
-        run: |
-          echo "Total Coverage: ${{ steps.jacoco.outputs.coverage }}"
-          echo "Branch Coverage: ${{ steps.jacoco.outputs.branches }}"
-          echo "Instruction Coverage: ${{ steps.jacoco.outputs.instructionCoverage }}"
-          echo "Line Coverage: ${{ steps.jacoco.outputs.lineCoverage }}"
-          echo "Complexity Coverage: ${{ steps.jacoco.outputs.complexityCoverage }}"
-          echo "Method Coverage: ${{ steps.jacoco.outputs.methodCoverage }}"
-          echo "Class Coverage: ${{ steps.jacoco.outputs.classCoverage }}"
-
-      - name: Upload JaCoCo coverage report as a workflow artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: jacoco-report
-          path: target/site/jacoco/
-
-      - name: Upload results to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./target/site/jacoco/jacoco.xml
-          flags: unittests
-          name: codecov-coverage
